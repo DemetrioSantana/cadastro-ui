@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="ui-g">
+    <div class=" ui-g-12 ui-g-12 ui-md-12 ui-fluid">
+      <p-toolbar >
+        <div class="ui-toolbar-group-right">
+          <p-button class="button-search" routerLink=""
+          icon="pi pi-search" label="Consultar"></p-button>
+        </div>
+      </p-toolbar>
+    </div>
+  </div>
+
+  <p-toast [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-toast>
+
+    <form autocomplete="off" [formGroup]="produto" (ngSubmit)="acoes()">
+         <div class="ui-g formGroup">
+
+          <div class=" ui-g-12 ui-g-12 ui-md-12 ui-fluid campo">
+            <div>
+              <div>Nome do Item </div>
+              <input class="campo-item" formControlName="nomeDoItem" size="40" id="float-input"
+              name="nomeDoItem" type="text" placeholder="Nome do item"  pInputText>
+
+            </div>
+          </div>
+
+
+
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+            <div>
+                  <p-dropdown [options]="unidades" formControlName="unidadeDeMedida"
+                  placeholder="Selecione a medida" (ngModelChange)="configurarMascara($event)"
+                  name="unidadeDeMedida"
+                  optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+          </div>
+
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+              <div class="ui-inputgroup">
+                <input pInputText type="text" id="quantidade" formControlName="quantidade" name="quantidade"
+                 placeholder="Quantidade" currencyMask
+                 [options]="unidade.mask"
+                style="text-align: right;" >
+                <span class="ui-inputgroup-addon">{{unidade.label}}</span>
+
+              </div>
+          </div>
+
+
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">R$</span>
+                <input pInputText type="text" id="preco"
+                currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                    style="text-align: right;" placeholder="Preço"
+                    name="preco" formControlName="preco">
+              </div>
+           </div>
+
+        </div>
+
+        <div class="ui-g formGroup">
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+            <p-toggleButton formControlName="produtoPerecivel" name="produtoPerecivel            "
+            onLabel="Perecível" offLabel="Não perecível" [style]="{'width':'150px'}"></p-toggleButton>
+
+          </div>
+
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+            <span class="ui-float-label">
+              <p-calendar  [disabled]="!produto.value.produtoPerecivel"
+                  [minDate]="presente"
+              [readonlyInput]="false" [showIcon]="false" [inline]="false"
+              formControlName="dataDeValidade" dateFormat="dd/mm/yy" [locale]="pt"
+              name="dataDeValidade" ></p-calendar>
+              <label for="float-input">Data de vencimento</label>
+            </span>
+          </div>
+
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+              <span class="ui-float-label">
+              <p-calendar formControlName="dataDeFabricacao"
+              [minDate]="passado" [maxDate]="presente"
+              [readonlyInput]="false" [showIcon]="false"
+              dateFormat="dd/mm/yy" [inline]="false" [locale]="pt"
+              name="dataDeFabricacao"></p-calendar>
+              <label for="float-input">Data de fabricação</label>
+            </span>
+          </div>
+        </div>
+        <div class="ui-g formGroup">
+          <div class=" ui-g-12 ui-g-6 ui-md-3 ui-gfluid campo">
+            <p-button label="Salvar"
+               icon="pi pi-save"></p-button>
+          </div>
+        </div>
+      </form>
+</div>
+
+

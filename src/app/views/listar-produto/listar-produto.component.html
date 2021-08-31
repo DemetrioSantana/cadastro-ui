@@ -1,0 +1,59 @@
+<div class="container">
+
+      <div class="ui-g">
+          <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+            <div class=" ui-g-12 ui-g-12 ui-md-12 ui-fluid">
+                <p-toolbar >
+                  <div class="ui-toolbar-group-right">
+                    <button pButton class="button-search" routerLink="criar-produto"
+                      icon="pi pi-file-o" label="Novo"></button>
+                  </div>
+                </p-toolbar>
+            </div>
+      </div>
+
+      <div class="ui-g">
+        <div class="ui-g-12 ui-fluid">
+          <p-table [value]="produtos" [responsive]="true"
+              [scrollable]="true" scrollHeight="400px">
+            <ng-template pTemplate="header" #tabela>
+              <tr>
+                <th>Item</th>
+              <!--- <th>Unidade</th>  -->
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Perecivel</th>
+                <th>Data de fabricação</th>
+                <th>Data de validade</th>
+                <th></th>
+              </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-produto>
+                <tr>
+                    <td>{{produto.nomeDoItem}}</td>
+                  <!--  <td class="campo-ao-centro">{{produto.unidadeDeMedida.name}}</td>-->
+                    <td class="campo-a-direita">{{produto.quantidade }}  {{ produto.unidadeDeMedida.name }}</td>
+                    <td class="campo-a-direita">{{produto.preco}}</td>
+                    <td class="campo-ao-centro">{{produto.produtoPerecivel ? 'Perecível' : 'Não Perecível'}}</td>
+                    <td class="campo-ao-centro">{{produto.dataDeValidade | date : 'dd/MM/yyyy'}}</td>
+                    <td class="campo-ao-centro">{{produto.dataDeFabricacao | date : 'dd/MM/yyyy'}}</td>
+                    <td class="campo-ao-centro col-acoes">
+                      <a pButton style="margin:3px;" pTooltip="Editar" tooltipPosition="top"
+                      pButton icon="pi pi-pencil"
+                      [routerLink]="['/criar-produto', produto.id]"
+                      ></a>
+                      <button style="margin:3px;" pTooltip="Excluir" tooltipPosition="top"
+                      (click)="confirmarExclusao(produto)"
+                      pButton icon="pi pi-trash"></button>
+                    </td>
+                </tr>
+              </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+</div>
+
+
+
